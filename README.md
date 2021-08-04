@@ -71,11 +71,29 @@ export class PhotoPage implements OnInit {
             const tempFilename = img.substr(img.lastIndexOf('/') + 1);
             const src = this.webview.convertFileSrc(img);
 
-            console.log(tempFilename); // nombre de la imagen 
-            console.log(src); //url de la imagen
+            console.log(tempFilename); // image name
+            console.log(src); //image url from movil
 
         });
     }
 
 }
+```
+
+"# Obtain image from mobile" 
+
+```Typescript
+ exportarImagenes(imagenes[]) {
+    let formData = new FormData();
+    let response: any;
+    let blob: any;
+
+    imagenes.forEach(async (element) => {
+      const url = element.url.split('?')[0];
+      response = await fetch(url);
+      blob = await response.blob();  // imagen in blob format
+      formData = new FormData();
+      formData.append("file", blob, element.nombre.split('?')[0]);
+    });
+  }
 ```
